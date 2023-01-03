@@ -9,6 +9,7 @@ const pool = require('./db/db')
 
 var indexRouter = require('./routes/index');
 const shiftsRouter = require('./routes/shifts')
+const specificQueryRouter = require('./routes/specificQuery')
 
 var app = express();
 
@@ -22,6 +23,7 @@ app.use(cors())
 
 app.use('/', indexRouter);
 app.use('/shifts', shiftsRouter)
+app.use('/specificQuery', specificQueryRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

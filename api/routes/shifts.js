@@ -3,7 +3,6 @@ const pool = require('../db/db')
 const setDateTimeFromDateAndTime = require('../functions/setDateFromDateAndTime')
 var router = express.Router();
 
-/* GET shifts page. */
 // Question 1 fetch (all shifts)
 router.get('/', function (req, res, next) {
   pool.query("SELECT question_one_shifts.*, facilities.facility_name  FROM question_one_shifts LEFT JOIN facilities ON question_one_shifts.facility_id = facilities.facility_id;")
@@ -31,7 +30,6 @@ router.get('/compare', function (req, res, next) {
         const shift1EndDate = setDateTimeFromDateAndTime(shiftsToCompare[0].shift_date, shiftsToCompare[0].end_time)
         const shift2StartDate = setDateTimeFromDateAndTime(shiftsToCompare[1].shift_date, shiftsToCompare[1].start_time)
         const overlapMinutes = (shift1EndDate - shift2StartDate) / 1000 / 60
-        //console.log(overlapMinutes, shift1EndDate - shift2StartDate)
         const exceedsOverlapThreshold = (maxOverlapMinutes < overlapMinutes)
         res.json({ 
             shifts: shiftsToCompare,
