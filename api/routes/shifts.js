@@ -12,9 +12,8 @@ router.get('/', function (req, res, next) {
   })
 });
 
-// Question 2 fetch
+// Question 2 fetch (compare shifts for overlap)
 router.get('/compare', function (req, res, next) {
-    console.log(req.query.id1)
     const shift1ID = req.query.id1 || null
     const shift2ID = req.query.id2 || null
     pool.query("SELECT *  FROM question_one_shifts WHERE shift_id IN ($1, $2) ORDER BY shift_date ASC, start_time ASC", [
@@ -28,7 +27,7 @@ router.get('/compare', function (req, res, next) {
         res.json({error: "Invalid parameters, please verify you are using valid and existing shift_id's"})
       } else {
         const maxOverlapMinutes = (shiftsToCompare[0].facility_id === shiftsToCompare[1].facility_id) ? 30 : 0
-        const shift1EndDate = setDateTimeFromDateAndTime(shiftsToCompare[0].shift_date, shiftsToCompare[0].end_time)
+        const shift1EndDate = setDateTimeFromDateAndTime(shiftsToCompare[0].shift_date, shiftsToCompare[0].end_time, shiftsToCompare[0].start_time)
         const shift2StartDate = setDateTimeFromDateAndTime(shiftsToCompare[1].shift_date, shiftsToCompare[1].start_time)
         let overlapMinutes = (shift1EndDate - shift2StartDate) / 1000 / 60
         if (overlapMinutes < 0) {overlapMinutes = 0}
