@@ -34,9 +34,24 @@ router.get('/Q5', function (req, res, next) {
   //pool.query("SELECT jobs.job_id FROM jobs LEFT JOIN nurse_hired_jobs ON jobs.job_id = nurse_hired_jobs.job_id WHERE nurse_hired_jobs.nurse_id != 1001 AND jobs.nurse_type_needed = 'CNA'")
   //below returns number of jobs a nurse could possible do, not taking into account if there is space for them or they already have the job
   //pool.query("SELECT nurses.nurse_name, nurses.nurse_id, nurses.nurse_type, COUNT(jobs.job_id) FROM nurses LEFT JOIN jobs ON nurses.nurse_type = jobs.nurse_type_needed GROUP BY nurses.nurse_id ORDER BY nurses.nurse_id")
+  
+  //below works but skips with available jobs at 0
+  // pool.query("SELECT nurses.nurse_name, nurses.nurse_id, nurses.nurse_type, COUNT(jobs.job_id) AS jobs_available_to_nurse " +
+  // "FROM nurses LEFT JOIN jobs ON nurses.nurse_type = jobs.nurse_type_needed " +
+  // "WHERE jobs.job_id IN " +
+  // "(" +
+  // "SELECT jobs.job_id  FROM jobs LEFT JOIN nurse_hired_jobs ON jobs.job_id = nurse_hired_jobs.job_id GROUP BY jobs.job_id HAVING jobs.total_number_nurses_needed - COUNT(nurse_hired_jobs.nurse_id) > 0" +
+  // ") " +
+  // "AND jobs.job_id IN " +
+  // "(" +
+  // "SELECT jobs.job_id FROM jobs LEFT JOIN nurse_hired_jobs ON jobs.job_id = nurse_hired_jobs.job_id WHERE nurse_hired_jobs.nurse_id != nurses.nurse_id AND jobs.nurse_type_needed = nurses.nurse_type" +
+  // ") " +
+  // "GROUP BY nurses.nurse_id " +
+  // "ORDER BY nurses.nurse_id") 
+
   pool.query("SELECT nurses.nurse_name, nurses.nurse_id, nurses.nurse_type, COUNT(jobs.job_id) AS jobs_available_to_nurse " +
   "FROM nurses LEFT JOIN jobs ON nurses.nurse_type = jobs.nurse_type_needed " +
-  "WHERE jobs.job_id IN " +
+  "AND jobs.job_id IN " +
   "(" +
   "SELECT jobs.job_id  FROM jobs LEFT JOIN nurse_hired_jobs ON jobs.job_id = nurse_hired_jobs.job_id GROUP BY jobs.job_id HAVING jobs.total_number_nurses_needed - COUNT(nurse_hired_jobs.nurse_id) > 0" +
   ") " +
@@ -45,7 +60,7 @@ router.get('/Q5', function (req, res, next) {
   "SELECT jobs.job_id FROM jobs LEFT JOIN nurse_hired_jobs ON jobs.job_id = nurse_hired_jobs.job_id WHERE nurse_hired_jobs.nurse_id != nurses.nurse_id AND jobs.nurse_type_needed = nurses.nurse_type" +
   ") " +
   "GROUP BY nurses.nurse_id " +
-  "ORDER BY nurses.nurse_id")  
+  "ORDER BY nurses.nurse_id") 
   .then(que => {
       const availableJobsCounts = que.rows
       res.json({ availableJobsCounts });
