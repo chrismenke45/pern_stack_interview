@@ -7,7 +7,7 @@ var logger = require('morgan');
 require('dotenv').config()
 const pool = require('./db/db')
 
-var indexRouter = require('./routes/index');
+var nursesRouter = require('./routes/nurses');
 const shiftsRouter = require('./routes/shifts')
 const specificQueryRouter = require('./routes/specificQuery')
 
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors())
 
-app.use('/', indexRouter);
+app.use('/nurses', nursesRouter);
 app.use('/shifts', shiftsRouter)
 app.use('/specificQuery', specificQueryRouter)
 
