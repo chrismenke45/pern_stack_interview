@@ -8,5 +8,4 @@ const to12HourFormat = (timeString) => {
     }
 }
 
-
 module.exports = to12HourFormat;

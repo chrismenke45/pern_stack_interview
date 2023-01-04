@@ -8,9 +8,8 @@ function VariousQueries(props) {
 
     const querySend = (e, queryID, nurse_id) => {
         if (queryID === "Q6") {
-            if (selectedNurseID || nurse_id) {
-                queryID += "?id=" + (selectedNurseID || nurse_id)
-                console.log(queryID)
+            if (nurse_id) {
+                queryID += "?id=" + nurse_id
             } else {
                 return
             }

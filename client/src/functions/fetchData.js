@@ -1,5 +1,5 @@
 const fetchData = (path) => {
-  let url = `http://localhost:5000/${path}`;
+  let url = `${process.env.REACT_APP_API_URL}/${path}`;
   const options = {
     method: 'GET',
     mode: 'cors',
