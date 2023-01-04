@@ -1,28 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ShiftList from "./components/ShiftList";
+import fetchData from "./functions/fetchData";
+import SelectedShifts from "./components/SelectedShifts";
+import VariousQueries from "./components/VariousQueries";
 
 function App() {
+  const [shifts, setShifts] = useState([])
+  const [selectedShiftIDs, setSelectedShiftIDs] = useState([])
+  const [selectedShift, setSelectedShift] = useState([])
+
   useEffect(() => {
-    let url = "http://localhost:5000";
-        const options = {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Accept': 'application/json',
-            }
-        };
-        fetch(url, options)
-            .then((response) => response.json())
-            .then(nurses => {
-                console.log(nurses)
-            })
-            .catch(error => {
-                console.error('Error:', error)
-            })
-  })
+    fetchData("shifts").then(data => {
+      setShifts(data.shifts)
+    })
+  }, [])
+
+  // useEffect(() => {
+  //   setSelectedShift(shifts.filter(shift => selectedShiftIDs.includes(shift.shift_id)))
+  // }, [selectedShiftIDs])
+
   return (
-    <div>
-      <h1>Pern</h1>
-    </div>
+    <main>
+      <h1>PERN Stack Interview</h1>
+      <SelectedShifts selectedShiftIDs={selectedShiftIDs} />
+      {shifts.length !== 0 && <ShiftList shifts={shifts} selectedShiftIDs={selectedShiftIDs} setSelectedShiftIDs={setSelectedShiftIDs} />}
+      <VariousQueries />
+    </main>
   );
 }
 

@@ -1,0 +1,148 @@
+:root {
+    --light-blue: #64afc6;
+    color: var(--light-blue);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button,
+select {
+    background-color: #fb6a2f;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+
+}
+
+button:hover,
+select:hover {
+    background: gray;
+}
+select:focus {
+    outline: none;
+}
+
+
+h3,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#comparisonBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    max-width: 600px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    flex: 0 0 100px
+}
+
+#comparisonBox form button {
+    height: 60px;
+    width: 100px;
+}
+
+.comparisonExplantion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#shiftList {
+    display: grid;
+    width: 100%;
+    max-width: 550px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-rows: repeat(auto-fill, 1fr);
+    gap: 2px;
+    margin-top: 5px;
+}
+
+.shiftListItem button {
+    width: 100%;
+    background: white;
+    border: 1px solid var(--light-blue);
+    color: var(--light-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shiftListItem button:hover {
+    background: var(--light-blue);
+    color: white;
+}
+
+.shiftListItem button.selected {
+    background: var(--light-blue);
+    color: white;
+}
+
+#variousQueries {
+    width: 95%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--light-blue);
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+#variousQueries form {
+    display: flex;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+#variousQueries form>* {
+    margin: 5px;
+}
+
+table {
+    /* width: 95%; */
+    border: 1px black solid;
+    margin: 5px;
+}
+
+th {
+    color: white;
+    padding: 0 8px;
+}
+
+td {
+    border: 1px black solid;
+    text-align: center;
+    vertical-align: middle;
+    background-color: var(--light-blue);
+    color: white;
+}
+
+@media screen and (max-width: 500px) {
+    #variousQueries form {
+        flex-direction: column;
+    }
+}
