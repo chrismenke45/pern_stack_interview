@@ -7,7 +7,6 @@ import VariousQueries from "./components/VariousQueries";
 function App() {
   const [shifts, setShifts] = useState([])
   const [selectedShiftIDs, setSelectedShiftIDs] = useState([])
-  const [selectedShift, setSelectedShift] = useState([])
 
   useEffect(() => {
     fetchData("shifts").then(data => {
