@@ -1,4 +1,5 @@
 const fetchData = (path) => {
+  //this fetches data from the api at a certain path, GET requests only!
   let url = `${process.env.REACT_APP_API_URL}/${path}`;
   const options = {
     method: 'GET',
