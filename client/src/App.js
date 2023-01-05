@@ -14,10 +14,6 @@ function App() {
     })
   }, [])
 
-  // useEffect(() => {
-  //   setSelectedShift(shifts.filter(shift => selectedShiftIDs.includes(shift.shift_id)))
-  // }, [selectedShiftIDs])
-
   return (
     <main>
       <h1>PERN Stack Interview</h1>
